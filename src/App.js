@@ -1,35 +1,25 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
 import CustomCursor from './components/effects/CustomCursor';
 import ParticleSystem from './components/effects/ParticleSystem';
 import TorchLight from './components/effects/TorchLight';
 import AmbientBackground from './components/effects/AmbientBackground';
 import LoadingSpinner from './components/common/LoadingSpinner';
-import './styles/App.css';
-
-// Part 1: State Management
 import UserProfile from './components/part1/UserProfile';
 import ShoppingCart from './components/part1/ShoppingCart';
+import TabsDemo from './components/part3/TabsDemo';
+import ModalDemo from './components/part3/ModalDemo';
+import LoginForm from './components/part4/LoginForm';
+import ErrorBoundaryDemo from './components/part4/ErrorBoundaryDemo';
+import './styles/App.css';
 
 // Part 2: Performance (Lazy loaded for demonstration)
 const Dashboard = lazy(() => import('./components/part2/Dashboard'));
 
-// Part 3: Design Patterns
-import TabsDemo from './components/part3/TabsDemo';
-import ModalDemo from './components/part3/ModalDemo';
-
-// Part 4: Testing
-import LoginForm from './components/part4/LoginForm';
-import ErrorBoundaryDemo from './components/part4/ErrorBoundaryDemo';
-
 // Lazy loaded AdminPanel for Exercise 2.3
-const AdminPanel = lazy(() => 
-  import('./components/part2/AdminPanel')
-);
+const AdminPanel = lazy(() => import('./components/part2/AdminPanel'));
 
 function App() {
-  const [activeQuest, setActiveQuest] = useState('home');
-
   return (
     <div className="app-container">
       <AmbientBackground />
