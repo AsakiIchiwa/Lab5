@@ -1,0 +1,238 @@
+/* ===== ERROR BOUNDARY PAGE ===== */
+.error-boundary-page {
+  animation: fadeIn 0.5s ease;
+}
+
+.error-boundary-content {
+  display: grid;
+  gap: 24px;
+}
+
+/* ===== BOMB SECTION ===== */
+.bomb-section {
+  padding: 24px;
+}
+
+.section-description {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.bomb-container {
+  padding: 40px;
+  background: var(--bg-dark);
+  border: 2px solid var(--gold-dark);
+  border-radius: 12px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.bomb-safe {
+  text-align: center;
+}
+
+.bomb-icon {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: 16px;
+  animation: bombPulse 2s ease-in-out infinite;
+}
+
+@keyframes bombPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.bomb-safe p {
+  color: var(--text-secondary);
+  font-family: var(--font-medieval);
+}
+
+.bomb-controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* ===== ERROR FALLBACK ===== */
+.error-fallback {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(220, 20, 60, 0.05));
+  border: 2px solid var(--fire-red);
+  border-radius: 12px;
+  animation: shakeIn 0.5s ease;
+}
+
+@keyframes shakeIn {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.fallback-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.fallback-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--fire-red);
+  margin-bottom: 12px;
+}
+
+.fallback-message {
+  color: var(--fire-orange);
+  font-family: var(--font-medieval);
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.fallback-details {
+  margin-bottom: 20px;
+}
+
+.fallback-details pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: left;
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+}
+
+/* ===== MULTI BOUNDARY SECTION ===== */
+.multi-boundary-section {
+  padding: 24px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.isolated-card {
+  min-height: 180px;
+}
+
+.spell-card-content,
+.spell-card-error {
+  height: 100%;
+  padding: 24px;
+  background: var(--bg-dark);
+  border: 2px solid var(--gold-dark);
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all var(--transition-medium);
+}
+
+.spell-card-content:hover {
+  border-color: var(--gold-medium);
+  transform: translateY(-4px);
+}
+
+.spell-card-content .spell-icon {
+  font-size: 3rem;
+}
+
+.spell-card-content h4 {
+  font-family: var(--font-heading);
+  color: var(--text-gold);
+}
+
+.cast-btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+.safe-badge {
+  font-size: 0.85rem;
+  color: var(--heal-green);
+  padding: 4px 12px;
+  background: rgba(76, 175, 80, 0.2);
+  border-radius: 20px;
+}
+
+.spell-card-error {
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(220, 20, 60, 0.05));
+  border-color: var(--fire-red);
+}
+
+.spell-card-error .error-icon {
+  font-size: 2.5rem;
+}
+
+.spell-card-error p {
+  color: var(--fire-orange);
+  font-family: var(--font-medieval);
+}
+
+.retry-btn {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+/* ===== TESTING INFO ===== */
+.testing-info {
+  padding: 24px;
+}
+
+.test-steps {
+  display: grid;
+  gap: 16px;
+}
+
+.test-step {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  align-items: flex-start;
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-medium));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-medieval);
+  font-size: 1rem;
+  color: var(--bg-darkest);
+  flex-shrink: 0;
+}
+
+.test-step h4 {
+  font-family: var(--font-heading);
+  color: var(--text-gold);
+  margin-bottom: 4px;
+}
+
+.test-step code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: var(--magic-cyan);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ===== CODE SECTION ===== */
+.code-section {
+  padding: 24px;
+}

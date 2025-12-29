@@ -1,0 +1,546 @@
+/* ===== CSS VARIABLES - RPG THEME ===== */
+:root {
+  /* Dark Medieval Colors */
+  --bg-darkest: #0a0a12;
+  --bg-dark: #12121f;
+  --bg-medium: #1a1a2e;
+  --bg-light: #252542;
+  
+  /* Gold & Bronze Accents */
+  --gold-bright: #ffd700;
+  --gold-medium: #c9a227;
+  --gold-dark: #8b6914;
+  --bronze: #cd7f32;
+  --copper: #b87333;
+  
+  /* Magical Colors */
+  --magic-blue: #4fc3f7;
+  --magic-purple: #9c27b0;
+  --magic-cyan: #00bcd4;
+  --fire-orange: #ff6b35;
+  --fire-red: #dc143c;
+  --heal-green: #4caf50;
+  --poison-green: #7cb342;
+  
+  /* Text Colors */
+  --text-primary: #e8e6e3;
+  --text-secondary: #a0a0b0;
+  --text-gold: #ffd700;
+  --text-muted: #6a6a7a;
+  
+  /* Borders & Shadows */
+  --border-gold: linear-gradient(135deg, #ffd700, #8b6914, #ffd700);
+  --shadow-glow: 0 0 20px rgba(255, 215, 0, 0.3);
+  --shadow-magic: 0 0 30px rgba(79, 195, 247, 0.4);
+  
+  /* Fonts */
+  --font-display: 'Cinzel Decorative', serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-medieval: 'MedievalSharp', cursive;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ===== GLOBAL RESET & BASE ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-darkest);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+  border-left: 1px solid var(--gold-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-medium), var(--gold-dark));
+  border-radius: 6px;
+  border: 2px solid var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold-medium));
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: difference;
+  transition: transform 0.1s ease;
+}
+
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--gold-bright);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--gold-bright), 0 0 20px var(--gold-medium);
+}
+
+.custom-cursor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--gold-medium);
+  border-radius: 50%;
+  animation: cursorPulse 1.5s ease-in-out infinite;
+}
+
+.custom-cursor.clicking::before {
+  transform: translate(-50%, -50%) scale(1.5);
+  background: var(--magic-cyan);
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--gold-bright);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0.6;
+  animation: trailFade 0.5s ease forwards;
+}
+
+@keyframes cursorPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+@keyframes trailFade {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* ===== PARTICLE EFFECTS ===== */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  animation: floatParticle 8s ease-in-out infinite;
+}
+
+.particle-ember {
+  width: 4px;
+  height: 4px;
+  background: var(--fire-orange);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--fire-orange), 0 0 12px var(--fire-red);
+  animation: emberFloat 6s ease-in-out infinite;
+}
+
+.particle-sparkle {
+  width: 3px;
+  height: 3px;
+  background: var(--gold-bright);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: sparkleFloat 5s ease-in-out infinite;
+}
+
+.particle-magic {
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, var(--magic-cyan), transparent);
+  border-radius: 50%;
+  animation: magicFloat 7s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-30px) rotate(90deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+  75% { transform: translateY(-40px) rotate(270deg); }
+}
+
+@keyframes emberFloat {
+  0% { transform: translateY(100vh) scale(1); opacity: 1; }
+  100% { transform: translateY(-100px) scale(0); opacity: 0; }
+}
+
+@keyframes sparkleFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-50px) scale(1.5); opacity: 1; }
+}
+
+@keyframes magicFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(20px, -30px) scale(1.3); opacity: 1; }
+  66% { transform: translate(-10px, -20px) scale(0.8); opacity: 0.8; }
+}
+
+/* ===== RPG UI ELEMENTS ===== */
+.rpg-panel {
+  background: linear-gradient(135deg, var(--bg-medium), var(--bg-dark));
+  border: 2px solid var(--gold-dark);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rpg-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--border-gold);
+}
+
+.rpg-panel::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--border-gold);
+}
+
+.rpg-title {
+  font-family: var(--font-display);
+  color: var(--text-gold);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3);
+  letter-spacing: 2px;
+}
+
+.rpg-subtitle {
+  font-family: var(--font-heading);
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.rpg-button {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-medium));
+  border: 2px solid var(--gold-bright);
+  border-radius: 4px;
+  color: var(--bg-darkest);
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-medium);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.rpg-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.rpg-button:hover::before {
+  left: 100%;
+}
+
+.rpg-button:hover {
+  background: linear-gradient(135deg, var(--gold-medium), var(--gold-bright));
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.rpg-button:active {
+  transform: translateY(0);
+}
+
+.rpg-button-magic {
+  background: linear-gradient(135deg, #1a1a4e, #2a2a6e);
+  border-color: var(--magic-cyan);
+  color: var(--magic-cyan);
+}
+
+.rpg-button-magic:hover {
+  background: linear-gradient(135deg, #2a2a6e, #3a3a8e);
+  box-shadow: var(--shadow-magic);
+  color: white;
+}
+
+.rpg-button-danger {
+  background: linear-gradient(135deg, #4a1a1a, #6a2a2a);
+  border-color: var(--fire-red);
+  color: var(--fire-orange);
+}
+
+.rpg-button-danger:hover {
+  background: linear-gradient(135deg, #6a2a2a, #8a3a3a);
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
+}
+
+/* ===== INPUT FIELDS ===== */
+.rpg-input {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 12px 16px;
+  background: var(--bg-dark);
+  border: 2px solid var(--gold-dark);
+  border-radius: 4px;
+  color: var(--text-primary);
+  transition: all var(--transition-medium);
+  width: 100%;
+}
+
+.rpg-input:focus {
+  outline: none;
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.rpg-input::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ===== CARDS ===== */
+.rpg-card {
+  background: linear-gradient(145deg, var(--bg-medium), var(--bg-dark));
+  border: 2px solid var(--gold-dark);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  transition: all var(--transition-medium);
+}
+
+.rpg-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, var(--gold-bright), transparent, var(--gold-bright));
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+}
+
+.rpg-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.rpg-card:hover::before {
+  opacity: 0.5;
+}
+
+/* ===== STATUS BARS ===== */
+.status-bar {
+  height: 24px;
+  background: var(--bg-dark);
+  border: 2px solid var(--gold-dark);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.status-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  position: relative;
+  transition: width var(--transition-medium);
+}
+
+.status-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.status-bar-hp .status-bar-fill {
+  background: linear-gradient(90deg, var(--fire-red), var(--heal-green));
+}
+
+.status-bar-mana .status-bar-fill {
+  background: linear-gradient(90deg, var(--magic-purple), var(--magic-cyan));
+}
+
+.status-bar-xp .status-bar-fill {
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright));
+}
+
+/* ===== LOADING STATES ===== */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+}
+
+.spinner-sword {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  animation: spinSword 2s linear infinite;
+}
+
+.spinner-sword::before {
+  content: '⚔️';
+  font-size: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spinSword {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-family: var(--font-medieval);
+  color: var(--text-gold);
+  font-size: 1.2rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: 8px; }
+.gap-2 { gap: 16px; }
+.gap-3 { gap: 24px; }
+.gap-4 { gap: 32px; }
+.p-1 { padding: 8px; }
+.p-2 { padding: 16px; }
+.p-3 { padding: 24px; }
+.p-4 { padding: 32px; }
+.m-auto { margin: auto; }
+.text-center { text-align: center; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.overflow-hidden { overflow: hidden; }
+.grid { display: grid; }
+
+/* ===== AMBIENT BACKGROUND ===== */
+.ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-bg::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(79, 195, 247, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(156, 39, 176, 0.03) 0%, transparent 70%);
+  animation: ambientMove 30s ease-in-out infinite;
+}
+
+@keyframes ambientMove {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(2%, -2%) rotate(5deg); }
+  50% { transform: translate(-1%, 3%) rotate(-3deg); }
+  75% { transform: translate(-3%, -1%) rotate(3deg); }
+}
+
+/* ===== TORCH LIGHT EFFECT ===== */
+.torch-light {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 150, 50, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  animation: torchFlicker 3s ease-in-out infinite;
+}
+
+@keyframes torchFlicker {
+  0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+  25% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  50% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.98); }
+  75% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.02); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  
+  .rpg-title {
+    font-size: 1.5rem;
+  }
+}

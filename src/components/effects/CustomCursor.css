@@ -1,0 +1,144 @@
+/* ===== CUSTOM CURSOR ===== */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+.cursor-core {
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #ffd700 0%, #ff9500 100%);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 10px #ffd700,
+    0 0 20px #ff9500,
+    0 0 30px rgba(255, 150, 0, 0.5);
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.custom-cursor.clicking .cursor-core {
+  transform: translate(-50%, -50%) scale(1.5);
+  background: radial-gradient(circle, #4fc3f7 0%, #00bcd4 100%);
+  box-shadow: 
+    0 0 15px #4fc3f7,
+    0 0 30px #00bcd4,
+    0 0 45px rgba(0, 188, 212, 0.5);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: cursorRingPulse 2s ease-in-out infinite;
+}
+
+.custom-cursor.clicking .cursor-ring {
+  border-color: rgba(79, 195, 247, 0.7);
+  animation: cursorRingClick 0.3s ease;
+}
+
+@keyframes cursorRingPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+@keyframes cursorRingClick {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Cursor sparkles */
+.cursor-sparkles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ffd700;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  animation: sparkleOrbit 3s linear infinite;
+  animation-delay: calc(var(--i) * 0.75s);
+  opacity: 0.7;
+}
+
+@keyframes sparkleOrbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(20px) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(180deg) translateX(20px) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(20px) scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Cursor trail */
+.cursor-trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  animation: trailFade 0.4s ease forwards;
+}
+
+@keyframes trailFade {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+/* Hide default cursor globally */
+* {
+  cursor: none !important;
+}
+
+/* Ensure clickable elements still work */
+button, a, input, select, textarea, [role="button"] {
+  cursor: none !important;
+}
